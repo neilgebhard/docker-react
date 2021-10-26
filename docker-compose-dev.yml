@@ -1,0 +1,22 @@
+# docker run -p 3000:3000 -v /app/node_modules -v $(pwd):/app <image id>
+# docker exec -it 7a4382285046 npm run test
+version: "3"
+services:
+  docker-react:
+    # restart: on-failure
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"]
