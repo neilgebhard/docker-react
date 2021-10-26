@@ -1,0 +1,14 @@
+# docker build -f Dockerfile.dev .
+# docker run -p 3000:3000 -v /app/node_modules -v $(pwd):/app <image id>
+# docker run 6900da217ce4bc1 npm run test
+# docker-compose up
+FROM node:alpine
+
+WORKDIR '/app'
+
+COPY package.json .
+RUN npm install
+
+COPY . .
+
+CMD ["npm", "start"]
